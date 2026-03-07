@@ -41,11 +41,13 @@ src/
 bun run dev            # Watch mode (bun --watch)
 bun run build          # Build (bun build --target bun)
 bun run start          # Run built output
-bun test               # Run tests
+bun test               # Run tests (Vitest, colocated *.test.ts files)
 bun run typecheck      # TypeScript check
 bun run lint           # Run ESLint
 bun run verify         # All checks + build (use before commit)
 ```
+
+Tests: Vitest, colocated with source files (`*.test.ts`).
 
 ## API Routes
 
@@ -90,7 +92,7 @@ Tables are created via raw SQL (no migration files). The DB connection uses a Pr
 - **cravings_types** — Shared TypeScript type definitions; this project imports request/response types and helpers from it
 - **cravings_client** — API client SDK that consumes this server's HTTP endpoints
 - **cravings_lib** — Business logic library that uses cravings_client to talk to this API
-- **cravings_app** — Web frontend that calls this API (default API URL mismatch: app uses 3001, API uses 8022)
+- **cravings_app** — Web frontend that calls this API (both default to port 8022)
 - **cravings_app_rn** — React Native app that calls this API
 
 Uses `@sudobility/auth_service` for Firebase token verification with caching.
@@ -108,15 +110,9 @@ Uses `@sudobility/auth_service` for Firebase token verification with caching.
 ## Gotchas
 
 - Database tables are created via raw SQL on startup, NOT via Drizzle migrations -- do not create migration files
-- The default port is `8022`, but `cravings_app` defaults to `localhost:3001` in its `.env` -- this port mismatch must be resolved in environment configuration
+- Both `cravings_app` and `cravings_api` default to port `8022` -- ensure `VITE_API_URL` in the app matches the API's `PORT` if you change either
 - Anonymous Firebase users are blocked with 403 -- only fully authenticated users are allowed
 - The `userId` in route paths (`:userId`) is the Firebase UID, not a database-generated ID
 - The DB Proxy pattern means connection errors only surface on first actual query, not at startup
 - `FIREBASE_PRIVATE_KEY` often needs newline escaping (`\\n` -> `\n`) depending on how it is set in the environment
 
-## Testing
-
-- Run tests: `bun test`
-- Tests are in files alongside source (e.g., `*.test.ts`)
-- Tests cover schema definitions, Firebase auth middleware behavior, and route handlers
-- Tests use Vitest as the test runner
