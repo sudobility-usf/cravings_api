@@ -1,8 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  successResponse,
-  errorResponse,
-} from "@sudobility/cravings_types";
+import { successResponse, errorResponse } from "@sudobility/cravings_types";
 import type { User } from "@sudobility/cravings_types";
 
 describe("users route logic", () => {
