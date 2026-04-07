@@ -3,6 +3,7 @@ import { firebaseAuthMiddleware } from "../middleware/firebaseAuth";
 import usersRouter from "./users";
 import historiesRouter from "./histories";
 import historiesTotalRouter from "./historiesTotal";
+import searchRouter from "./search";
 
 /**
  * Aggregated API routes for the `/api/v1` prefix.
@@ -20,6 +21,7 @@ const routes = new Hono();
 
 // Public routes (no auth required)
 routes.route("/histories", historiesTotalRouter);
+routes.route("/", searchRouter);
 
 // Auth-required routes
 const authRoutes = new Hono();
