@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import { Hono } from "hono";
 import { successResponse } from "@sudobility/cravings_types";
 
 describe("historiesTotal route", () => {
