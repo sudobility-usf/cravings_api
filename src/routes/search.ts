@@ -14,8 +14,11 @@ const searchRouter = new Hono();
  * @body {{ location: string, dish: string }}
  * @returns {BaseResponse<Restaurant[]>} List of matching restaurants
  */
-searchRouter.post("/search", async (c) => {
-  const { location, dish } = await c.req.json<{ location: string; dish: string }>();
+searchRouter.post("/search", async c => {
+  const { location, dish } = await c.req.json<{
+    location: string;
+    dish: string;
+  }>();
 
   if (!location || !dish) {
     return c.json(errorResponse("location and dish are required"), 400);

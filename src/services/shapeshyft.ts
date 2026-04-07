@@ -22,6 +22,9 @@ export async function searchRestaurants(
     throw new Error(`ShapeShyft API error: ${response.status}`);
   }
 
-  const data = JSON.parse(rawBody) as { success: boolean; data: { output: Restaurant; usage: unknown } };
+  const data = JSON.parse(rawBody) as {
+    success: boolean;
+    data: { output: Restaurant; usage: unknown };
+  };
   return [data.data.output];
 }
