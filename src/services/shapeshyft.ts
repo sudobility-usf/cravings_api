@@ -12,7 +12,9 @@ export async function searchRestaurants(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ location, dish }),
+    body: JSON.stringify({
+      prompt: `Return a list of 5 restaurants serving ${dish} near ${location}. For each include name, address, and distance.`,
+    }),
   });
 
   const rawBody = await response.text();
@@ -24,7 +26,7 @@ export async function searchRestaurants(
 
   const data = JSON.parse(rawBody) as {
     success: boolean;
-    data: { output: Restaurant; usage: unknown };
+    data: { output: { restaurants: Restaurant[] }; usage: unknown };
   };
-  return [data.data.output];
+  return data.data.output.restaurants;
 }
