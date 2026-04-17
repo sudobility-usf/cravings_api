@@ -13,7 +13,7 @@ export async function searchRestaurants(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      prompt: `Return a list of 5 restaurants serving ${dish} near ${location}. For each include name, address, and distance.`,
+      prompt: `Return a list of at least 10 to 15 restaurants serving ${dish} near ${location}. Do not stop at 5. For each include name, address, distance, and a 1-2 sentence summary of what the place is known for.`,
     }),
   });
 
